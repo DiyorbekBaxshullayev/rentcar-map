@@ -19,6 +19,7 @@ function MapPage() {
     <div className="p-4">
       <h1 className="text-xl font-bold mb-4">Bizning manzil</h1>
 
+      {/* Samarqand xaritasi */}
       <iframe
         src="https://maps.google.com/maps?q=41.311081,69.240562&z=15&output=embed"
         width="100%"
