@@ -1,5 +1,19 @@
 import { useEffect, useState } from "react";
-import ReverseGeocode from "./components/ReverseGeocode"; // To‘g‘ri path bo‘lishi kerak
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import ReverseGeocode from "./components/ReverseGeocode";
+
+const containerStyle = {
+  width: "100%",
+  height: "400px",
+  borderRadius: "10px",
+};
+
+const ttuBuilding = {
+  lat: 39.653930,
+  lng: 66.958974,
+};
+
+const apiKey = "YOUR_GOOGLE_MAPS_API_KEY"; // <-- API kalitni bu yerga yozing
 
 function MapPage() {
   const [userCoords, setUserCoords] = useState(null);
@@ -11,12 +25,15 @@ function MapPage() {
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log("Foydalanuvchi joylashuvi:", position.coords);
-        setUserCoords(position.coords);
+        setUserCoords({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
       },
       (error) => {
         console.error("Joylashuv aniqlanmadi:", error);
-      }
+      },
+      { enableHighAccuracy: true }
     );
   }, []);
 
@@ -24,22 +41,32 @@ function MapPage() {
     <div className="p-4">
       <h1 className="text-xl font-bold mb-4">Bizning manzil - Samarqand</h1>
 
-      {/* Xarita: Samarqand markazi */}
-      <iframe
-        src="https://maps.google.com/maps?q=39.6542,66.9597&z=14&output=embed"
-        width="100%"
-        height="400"
-        allowFullScreen
-        loading="lazy"
-        style={{ borderRadius: "10px", border: 0 }}
-        title="Samarqand RentCar joylashuvi"
-      ></iframe>
+      <LoadScript googleMapsApiKey={apiKey}>
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={ttuBuilding}
+          zoom={16}
+        >
+          <Marker
+            position={ttuBuilding}
+            label="TATU"
+            icon={{ url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png" }}
+          />
 
-      {/* Foydalanuvchining joylashuvi matnda chiqariladi */}
+          {userCoords && (
+            <Marker
+              position={userCoords}
+              label="Siz"
+              icon={{ url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png" }}
+            />
+          )}
+        </GoogleMap>
+      </LoadScript>
+
       {userCoords && (
         <p className="mt-4 text-sm text-gray-700">
           Sizning manzilingiz:{" "}
-          <ReverseGeocode lat={userCoords.latitude} lng={userCoords.longitude} />
+          <ReverseGeocode lat={userCoords.lat} lng={userCoords.lng} />
         </p>
       )}
     </div>
