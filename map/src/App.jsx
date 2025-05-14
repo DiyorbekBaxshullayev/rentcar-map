@@ -1,27 +1,41 @@
-import React from 'react';
-import './App.css';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { LatLngExpression } from 'leaflet';
+import { useEffect, useState } from "react";
 
-const App = () => {
-  const position = [41.2995, 69.2401]; // Tashkent manzili (sizga kerakli manzilni o'zgartiring)
-  const zoom = 13;
+function MapPage() {
+  const [userCoords, setUserCoords] = useState(null);
+
+  useEffect(() => {
+    // Telegram WebApp API-ni ishga tushirish
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.expand();
+    }
+
+    // Foydalanuvchi joylashuvini olish
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log("Foydalanuvchi joylashuvi:", position.coords);
+      setUserCoords(position.coords); // Istasangiz foydalanuvchining location’ini saqlang
+    });
+  }, []);
 
   return (
-    <div className="App">
-      <h1>Bizning Manzil</h1>
-      <MapContainer center={position} zoom={zoom} style={{ height: "100vh", width: "100%" }}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={position}>
-          <Popup>
-            Bu yerda bizning manzilimiz joylashgan.
-          </Popup>
-        </Marker>
-      </MapContainer>
+    <div className="p-4">
+      <h1 className="text-xl font-bold mb-4">Bizning manzil</h1>
+
+      <iframe
+        src="https://maps.google.com/maps?q=41.311081,69.240562&z=15&output=embed"
+        width="100%"
+        height="400"
+        allowFullScreen
+        loading="lazy"
+        style={{ borderRadius: "10px", border: 0 }}
+      ></iframe>
+
+      {userCoords && (
+        <p className="mt-4 text-sm text-gray-700">
+          Sizning joylashuvingiz: {userCoords.latitude}, {userCoords.longitude}
+        </p>
+      )}
     </div>
   );
-};
+}
 
-export default App;
+export default MapPage;
