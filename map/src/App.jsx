@@ -44,7 +44,7 @@ function MapPage() {
           <Marker
             position={ttuBuilding}
             label="TATU Samarqand"
-            icon={{ url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png" }}
+            icon={{ url: "https://maps.google.com/mapfiles/ms/icons/green-dot.png" }} // HTTPS orqali
           />
 
           {/* Foydalanuvchi marker (qizil) */}
@@ -52,7 +52,7 @@ function MapPage() {
             <Marker
               position={userCoords}
               label="Siz"
-              icon={{ url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png" }}
+              icon={{ url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png" }} // HTTPS orqali
             />
           )}
         </GoogleMap>

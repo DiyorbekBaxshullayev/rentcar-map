@@ -39,7 +39,7 @@ const RentCarMap = () => {
             position={userCoords}
             label="Siz"
             icon={{
-              url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+              url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png', // HTTPS
             }}
           />
         )}
@@ -51,7 +51,7 @@ const RentCarMap = () => {
             position={{ lat: center.lat, lng: center.lng }}
             label={center.name}
             icon={{
-              url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+              url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png', // HTTPS
             }}
           />
         ))}
