@@ -13,7 +13,7 @@ const ttuBuilding = {
   lng: 66.958974,
 };
 
-const apiKey = "YOUR_GOOGLE_MAPS_API_KEY"; // <-- API kalitni bu yerga yozing
+const apiKey = "AIzaSyCE0TrRWdr6lTquJ9h9vzAvciEKJCW7fDQ"; // <-- API kalitni bu yerga yozing
 
 function MapPage() {
   const [userCoords, setUserCoords] = useState(null);
@@ -50,14 +50,14 @@ function MapPage() {
           <Marker
             position={ttuBuilding}
             label="TATU"
-            icon={{ url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png" }}
+            icon={{ url: "https://maps.google.com/mapfiles/ms/icons/green-dot.png" }}
           />
 
           {userCoords && (
             <Marker
               position={userCoords}
               label="Siz"
-              icon={{ url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png" }}
+              icon={{ url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png" }}
             />
           )}
         </GoogleMap>
