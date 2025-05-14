@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
+import ReverseGeocode from "./components/ReverseGeocode"; // to‘g‘ri yo‘liga qarab import qiling
 
 function MapPage() {
   const [userCoords, setUserCoords] = useState(null);
 
   useEffect(() => {
-    // Telegram WebApp API-ni ishga tushirish
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.expand();
     }
 
-    // Foydalanuvchi joylashuvini olish
     navigator.geolocation.getCurrentPosition((position) => {
       console.log("Foydalanuvchi joylashuvi:", position.coords);
-      setUserCoords(position.coords); // Istasangiz foydalanuvchining location’ini saqlang
+      setUserCoords(position.coords);
     });
   }, []);
 
@@ -31,7 +30,8 @@ function MapPage() {
 
       {userCoords && (
         <p className="mt-4 text-sm text-gray-700">
-          Sizning joylashuvingiz: {userCoords.latitude}, {userCoords.longitude}
+          Sizning manzilingiz:{" "}
+          <ReverseGeocode lat={userCoords.latitude} lng={userCoords.longitude} />
         </p>
       )}
     </div>
